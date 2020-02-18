@@ -66,6 +66,6 @@ class Box<T> {
     }
     
     <U> Box<U> map(Transformer<T,U> t) {
-        return Box.of(t.transform(this.get()));
+        return Box.ofNullable(t.transform(this.get()));
     }
 }
