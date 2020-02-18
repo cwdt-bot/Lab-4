@@ -66,6 +66,9 @@ class Box<T> {
     }
     
     <U> Box<U> map(Transformer<T,U> t) {
+        if (this.get() == null) {
+            return Box.empty();
+        }
         return Box.ofNullable(t.transform(this.get()));
     }
 }
