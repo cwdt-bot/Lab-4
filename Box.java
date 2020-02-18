@@ -21,9 +21,8 @@ class Box<T> {
             return new Box<T>(item);
         }
     }
-
+    @SuppressWarnings("unchecked")
     static <U> Box<U> empty() {
-        @SuppressWarnings("unchecked")
         return (Box<U>) EMPTY_BOX;
     }
 
