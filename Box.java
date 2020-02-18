@@ -54,7 +54,7 @@ class Box<T> {
 
 
 
-    <U> Box<U> filter(BooleanCondition<U> x) {
+    Box<T> filter(BooleanCondition<Box<T>> x) {
         if (x.test(this) == false) {
             return Box.empty();
         } else {
