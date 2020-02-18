@@ -57,7 +57,7 @@ class Box<T> {
     }
 
 
-    Box<T> filter(BooleanCondition<T> x) {
+    Box<T> filter(BooleanCondition<? super T> x) {
         if (x.test(this.get()) == false) {
             return Box.empty();
         } else {
