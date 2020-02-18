@@ -45,7 +45,11 @@ class Box<T> {
 
     @Override
     public String toString() {
-        return "[" + item + "]";
+        if (item==null) {
+            return "[]";
+        } else {
+            return "[" + item + "]";
+        }
     }
 
     boolean isPresent() {
@@ -53,13 +57,11 @@ class Box<T> {
     }
 
 
-
-    Box<T> filter(BooleanCondition<Box<T>> x) {
-        if (x.test(this) == false) {
+    Box<T> filter(BooleanCondition<T> x) {
+        if (x.test(this.get()) == false) {
             return Box.empty();
         } else {
             return this;
         }
-    }
-    
+    }    
 }
