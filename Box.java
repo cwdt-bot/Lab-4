@@ -23,6 +23,7 @@ class Box<T> {
     }
 
     static <U> Box<U> empty() {
+        @SuppressWarnings("unchecked")
         return (Box<U>) EMPTY_BOX;
     }
 
@@ -33,6 +34,7 @@ class Box<T> {
     @Override
     public boolean equals(Object other) {
         if (other instanceof Box<?>) {
+            @SuppressWarnings("unchecked")
             Box<T> obox = (Box<T>) other;
             if (this.get() == null || obox.get() == null) {
                 return this.get() == obox.get();
