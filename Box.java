@@ -63,5 +63,9 @@ class Box<T> {
         } else {
             return this;
         }
-    }    
+    }
+    
+    <U> Box<U> map(Transformer<T,U> t) {
+        return Box.of(t.transform(this.get()));
+    }
 }
