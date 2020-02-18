@@ -46,7 +46,7 @@ class Box<T> {
 
     @Override
     public String toString() {
-        if (this.isPresent()) {
+        if (!this.isPresent()) {
             return "[]";
         } else {
             return "[" + item + "]";
