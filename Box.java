@@ -32,10 +32,10 @@ class Box<T> {
 
     @Override
     public boolean equals(Object other) {
-        if (other instanceof Box<?>) {
+        if (other instanceof Box) {
             @SuppressWarnings("unchecked")
             Box<T> obox = (Box<T>) other;
-            if (this.get() == null || obox.get() == null) {
+            if (!this.isPresent() || !obox.isPresent()) {
                 return this.get() == obox.get();
             }
             return this.get().equals(obox.get());
@@ -46,7 +46,7 @@ class Box<T> {
 
     @Override
     public String toString() {
-        if (item==null) {
+        if (this.isPresent()) {
             return "[]";
         } else {
             return "[" + item + "]";
@@ -67,7 +67,7 @@ class Box<T> {
     }
     
     <U> Box<U> map(Transformer<? super T,U> t) {
-        if (this.get() == null) {
+        if (this.isPresent()) {
             return Box.empty();
         }
         return Box.ofNullable(t.transform(this.get()));
