@@ -1,6 +1,6 @@
 class Box<T> {
     protected final T item;
-    private static final Box<? super Object> EMPTY_BOX = new Box<>(null);
+    private static final Box<Object> EMPTY_BOX = new Box<>(null);
 
     private Box (T item) {
         this.item = item;
@@ -65,7 +65,7 @@ class Box<T> {
         }
     }
     
-    <U> Box<U> map(Transformer<T,U> t) {
+    <U> Box<U> map(Transformer<? super T,U> t) {
         if (this.get() == null) {
             return Box.empty();
         }
