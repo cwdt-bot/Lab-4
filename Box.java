@@ -1,6 +1,6 @@
 class Box<T> {
     protected final T item;
-    private static final Box<? super Object> EMPTY_BOX = new Box<>(null);
+    private static final Box<Object> EMPTY_BOX = new Box<>(null);
 
     private Box (T item) {
         this.item = item;
@@ -21,7 +21,7 @@ class Box<T> {
             return new Box<T>(item);
         }
     }
-
+    @SuppressWarnings("unchecked")
     static <U> Box<U> empty() {
         return (Box<U>) EMPTY_BOX;
     }
@@ -32,9 +32,10 @@ class Box<T> {
 
     @Override
     public boolean equals(Object other) {
-        if (other instanceof Box<?>) {
+        if (other instanceof Box) {
+            @SuppressWarnings("unchecked")
             Box<T> obox = (Box<T>) other;
-            if (this.get() == null || obox.get() == null) {
+            if (!this.isPresent() || !obox.isPresent()) {
                 return this.get() == obox.get();
             }
             return this.get().equals(obox.get());
@@ -45,7 +46,7 @@ class Box<T> {
 
     @Override
     public String toString() {
-        if (item==null) {
+        if (!this.isPresent()) {
             return "[]";
         } else {
             return "[" + item + "]";
@@ -57,11 +58,18 @@ class Box<T> {
     }
 
 
-    Box<T> filter(BooleanCondition<T> x) {
+    Box<T> filter(BooleanCondition<? super T> x) {
         if (x.test(this.get()) == false) {
             return Box.empty();
         } else {
             return this;
         }
-    }    
+    }
+    
+    <U> Box<U> map(Transformer<? super T,U> t) {
+        if (!this.isPresent()) {
+            return Box.empty();
+        }
+        return Box.ofNullable(t.transform(this.get()));
+    }
 }
