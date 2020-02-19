@@ -1,7 +1,6 @@
-class BoxIt<T> implements Transformer<Object, Box<T>> {
+class BoxIt<T> implements Transformer<T, Box<T>> {
     
-    @SuppressWarnings("unchecked")
-    public Box<T> transform(Object o) {
-        return (Box<T>) Box.ofNullable(o); 
+    public Box<T> transform(T o) {
+        return  Box.ofNullable(o); 
     }
 }
