@@ -67,7 +67,7 @@ class Box<T> {
     }
     
     <U> Box<U> map(Transformer<? super T,U> t) {
-        if (this.isPresent()) {
+        if (!this.isPresent()) {
             return Box.empty();
         }
         return Box.ofNullable(t.transform(this.get()));
